@@ -1,0 +1,27 @@
+{
+  "generator-jhipster": {
+    "applicationIndex": 1,
+    "applicationType": "microservice",
+    "authenticationType": "oauth2",
+    "baseName": "blog",
+    "buildTool": "gradle",
+    "clientFramework": "react",
+    "creationTimestamp": 1702088184193,
+    "databaseType": "neo4j",
+    "devServerPort": null,
+    "enableHibernateCache": false,
+    "entities": ["Blog", "Post", "Tag"],
+    "jhipsterVersion": "9.4.0",
+    "jwtSecretKey": "NzUzODAwNWM2NzI4OTJmZDc5YjU0MzNkNmY4ZWNjOTJiNTMyYzFkODQ0MTczNmVkMGFmN2Q5M2QyMTUzMDM2Mzg3YWRjNGRlNTBkNTNlZmJkNDkwNjg0ZDQyZTRlMjAxMTg4NDFjMzdhOWY5Mzk5Y2VmY2U2MjlmMTY2NmZmODI=",
+    "languages": ["en"],
+    "lastLiquibaseTimestamp": 1702088364000,
+    "monorepository": true,
+    "nativeLanguage": "en",
+    "packageName": "com.okta.developer.blog",
+    "reactive": true,
+    "serverPort": "8081",
+    "serviceDiscoveryType": "consul",
+    "skipCommitHook": true,
+    "testFrameworks": ["cypress"]
+  }
+}

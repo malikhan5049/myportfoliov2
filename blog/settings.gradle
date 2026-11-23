@@ -1,0 +1,12 @@
+
+pluginManagement {
+    repositories {
+        // jhipster-needle-gradle-plugin-management-repositories - JHipster will add additional entries here
+        gradlePluginPortal()
+    }
+    plugins {
+        // jhipster-needle-gradle-plugin-management-plugins - JHipster will add additional entries here
+    }
+}
+
+rootProject.name = "blog"
