@@ -8,7 +8,7 @@ const apiVersion = '0.0.1';
 const sharedDefaults = { singleton: true, strictVersion: true, requiredVersion: apiVersion };
 // Application modules are not installed packages, `import` points the federation plugin to the source file.
 const shareMappings = (...mappings: string[]) =>
-  Object.fromEntries(mappings.map(map => [map, { ...sharedDefaults, version: apiVersion, import: `./src/main/webapp/${map}` }]));
+  Object.fromEntries(mappings.map(map => [map, { ...sharedDefaults, version: apiVersion, import: `./${map}` }]));
 
 const shareDependencies = ({ skipList = [] }: { skipList?: string[] } = {}) =>
   Object.fromEntries(
