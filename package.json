@@ -18,6 +18,7 @@
     "ci:e2e:teardown": "docker compose -f docker-compose/docker-compose.yml down -v",
     "ci:frontend:test": "npm run ci:frontend:test --workspaces --if-present",
     "docker-compose": "docker compose -f docker-compose/docker-compose.yml up --wait",
+    "docker-compose:down": "docker compose -f docker-compose/docker-compose.yml down",
     "java:docker": "concurrently npm:java:docker:gateway npm:java:docker:blog npm:java:docker:store",
     "java:docker:arm64": "concurrently npm:java:docker:arm64:gateway npm:java:docker:arm64:blog npm:java:docker:arm64:store",
     "java:docker:arm64:blog": "npm run java:docker:arm64 --workspace blog --if-present",
