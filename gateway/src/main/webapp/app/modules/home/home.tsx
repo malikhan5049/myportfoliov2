@@ -17,9 +17,13 @@ export const Home = () => {
     const redirectURL = localStorage.getItem(REDIRECT_URL);
     if (redirectURL) {
       localStorage.removeItem(REDIRECT_URL);
-      location.href = `${location.origin}${redirectURL}`;
+      // Avoid a redundant full page reload when the stored target is the page we are
+      // already on (e.g. login was initiated from the home page itself).
+      if (redirectURL !== `${location.pathname}${location.search}`) {
+        location.href = `${location.origin}${redirectURL}`;
+      }
     }
-  });
+  }, [pageLocation]);
 
   return (
     <Row>
