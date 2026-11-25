@@ -91,7 +91,7 @@ services:
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/realms/jhipster
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
-      - SPRING_MONGODB_URI=mongodb://store-mongodb:27017/store
+      - SPRING_DATA_MONGODB_URI=mongodb://store-mongodb:27017/store
     healthcheck:
       test:
         - CMD-SHELL
