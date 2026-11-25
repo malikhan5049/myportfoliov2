@@ -28,7 +28,9 @@ const config = defineConfig({
           ],
           dest: 'swagger-ui',
           rename: (name, ext, srcPath) => {
-            const rel = path.relative(webappDir, path.dirname(srcPath)).replace(/^(\.\.\/)+/, '');
+            // normalizePath keeps the ../-cancelling arithmetic below working on Windows,
+            // where path.relative() returns backslash separators.
+            const rel = normalizePath(path.relative(webappDir, path.dirname(srcPath))).replace(/^(\.\.\/)+/, '');
             return `${'../'.repeat(rel === '.' ? 0 : rel.split('/').length)}${name}.${ext}`;
           },
         },
