@@ -7,6 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getGatewayRoutes } from '../administration.reducer';
 
+export const badgeInfo = (info?: { checks?: { status?: string }[]; Checks?: { Status?: string; status?: string }[] }) => {
+  if (info) {
+    const checks = info.checks ?? info.Checks;
+    if (checks && checks.length > 0 && checks.every(check => (check.status ?? check.Status ?? '').toLowerCase() === 'passing')) {
+      return <Badge bg="success">UP</Badge>;
+    }
+    return <Badge bg="danger">DOWN</Badge>;
+  }
+  return <Badge bg="warning">?</Badge>;
+};
+
 export const GatewayPage = () => {
   const dispatch = useAppDispatch();
   const isFetching = useAppSelector(state => state.administration.loading);
@@ -31,16 +42,6 @@ export const GatewayPage = () => {
       );
     });
     return spans;
-  };
-
-  const badgeInfo = info => {
-    if (info) {
-      if (info.checks && info.checks.filter(check => check.status === 'PASSING').length === info.checks.length) {
-        return <Badge bg="success">UP</Badge>;
-      }
-      return <Badge bg="danger">DOWN</Badge>;
-    }
-    return <Badge bg="warning">?</Badge>;
   };
 
   const instanceInfo = route => {
