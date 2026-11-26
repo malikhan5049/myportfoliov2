@@ -44,58 +44,49 @@
       }
 
       async function fetchUrls(serverBaseUri, axiosConfig, baseUrl) {
+        // The docs page must show only this service's API. The dev-server proxy and
+        // the gateway both route /services/blog/** to the blog backend, so this works
+        // in dev and through the gateway in prod.
+        const servicePath = '/services/blog';
         let urls;
 
         try {
-          const response = await axios.get('/management/health/discoveryComposite', axiosConfig);
-          const services = response.data?.components?.discoveryClient?.details?.services.filter(service => service !== 'consul');
-          console.log(`Services`, services);
-
-          if (services && services.length > 0) {
-            urls = (
-              await Promise.allSettled(
-                services.map(async service => {
-                  return axios
-                    .get(`/services/${service}/management/jhiopenapigroups`, axiosConfig)
-                    .then(response => {
-                      if (Array.isArray(response.data)) {
-                        return response.data.map(({ group, description }) => ({
-                          name: description,
-                          url: `/services/${service}/${baseUrl}/${group}`,
-                        }));
-                      }
-                      return undefined;
-                    })
-                    .catch(() => {
-                      return axios
-                        .get(`/services/${service}/${baseUrl}`, axiosConfig)
-                        .then(() => [{ url: `/services/${service}/${baseUrl}`, name: `${service} (default)` }]);
-                    });
-                }),
-              )
-            )
-              .filter(settled => settled.status === 'fulfilled')
-              .map(settled => settled.value)
-              .filter(Array.isArray)
-              .flat();
+          const response = await axios.get(`${servicePath}/management/jhiopenapigroups`, axiosConfig);
+          if (Array.isArray(response.data)) {
+            urls = response.data.map(({ group, description }) => ({
+              name: description,
+              url: `${servicePath}/${baseUrl}/${group}`,
+            }));
           }
         } catch (error) {
-          console.log(error);
+          console.error(`Failed to fetch API docs groups from ${servicePath}/management/jhiopenapigroups`, error);
         }
 
-        if (!urls || urls.length === 0) {
-          try {
-            const response = await axios.get('/management/jhiopenapigroups', axiosConfig);
-            if (Array.isArray(response.data)) {
-              urls = response.data.map(({ group, description }) => ({ name: description, url: `${serverBaseUri}${baseUrl}/${group}` }));
-            }
-          } catch (error) {
-            console.error('Failed to fetch default API docs', error);
+        if (urls && urls.length > 0) {
+          return urls;
+        }
+
+        try {
+          const response = await axios.get(`${servicePath}/${baseUrl}`, axiosConfig);
+          if (response.data && response.data.openapi) {
+            return [{ name: 'blog (default)', url: `${servicePath}/${baseUrl}` }];
           }
+          console.error(`Ignoring non-OpenAPI response from ${servicePath}/${baseUrl}`);
+        } catch (error) {
+          console.error(`Failed to fetch API docs from ${servicePath}/${baseUrl}`, error);
         }
-        console.log(`Swagger urls`, urls);
 
-        return urls?.length ? urls : [{ name: 'default', url: `${serverBaseUri}${baseUrl}` }];
+        try {
+          const response = await axios.get(`${baseUrl}`, axiosConfig);
+          if (response.data && response.data.openapi) {
+            return [{ name: 'blog (default)', url: `${serverBaseUri}${baseUrl}` }];
+          }
+          console.error(`Ignoring non-OpenAPI response from ${baseUrl}`);
+        } catch (error) {
+          console.error(`Failed to fetch API docs from ${baseUrl}`, error);
+        }
+
+        return undefined;
       }
 
       function sortUrls(urls) {
@@ -145,9 +136,15 @@
         const serverBaseUri = document.baseURI.replace('swagger-ui/', '');
         const axiosConfig = createAxiosConfig(serverBaseUri);
         const urls = await fetchUrls(serverBaseUri, axiosConfig, baseUrl);
-        const sortedUrls = sortUrls(urls);
 
-        initializeSwaggerUI(sortedUrls, baseUrl);
+        if (!urls || urls.length === 0) {
+          document.getElementById('swagger-ui').textContent =
+            'Failed to load the OpenAPI specification. Sign in as an administrator and reload.';
+          return;
+        }
+
+        const sortedUrls = sortUrls(urls);
+        initializeSwaggerUI(sortedUrls, sortedUrls[0].url);
       };
     </script>
   </body>

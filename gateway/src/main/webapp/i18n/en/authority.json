@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "authority": {
+      "home": {
+        "title": "Authorities",
+        "refreshListLabel": "Refresh list",
+        "editLabel": "Edit Authority",
+        "notFound": "No Authorities found"
+      },
+      "detail": {
+        "title": "Authority"
+      },
+      "name": "Name"
+    }
+  }
+}

@@ -1,15 +1,43 @@
+import path from 'node:path';
 import { URL, fileURLToPath } from 'node:url';
 
 import { federation } from '@module-federation/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, normalizePath } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 import federationConfig from './module-federation.config.ts';
+
+const { getAbsoluteFSPath } = await import('swagger-ui-dist');
+const swaggerUiPath = getAbsoluteFSPath();
+const webappDir = fileURLToPath(new URL('./src/main/webapp/', import.meta.url));
 
 const development = process.env.NODE_ENV !== 'production';
 
 const config = defineConfig({
-  plugins: [react(), federation(federationConfig)],
+  plugins: [
+    react(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: [
+            `${normalizePath(swaggerUiPath)}/*.{js,css,html,png}`,
+            `!${normalizePath(swaggerUiPath)}/**/index.html`,
+            normalizePath(fileURLToPath(new URL('./dist/axios.min.js', import.meta.resolve('axios/package.json')))),
+            normalizePath(fileURLToPath(new URL('./src/main/webapp/swagger-ui/index.html', import.meta.url))),
+          ],
+          dest: 'swagger-ui',
+          rename: (name, ext, srcPath) => {
+            // normalizePath keeps the ../-cancelling arithmetic below working on Windows,
+            // where path.relative() returns backslash separators.
+            const rel = normalizePath(path.relative(webappDir, path.dirname(srcPath))).replace(/^(\.\.\/)+/, '');
+            return `${'../'.repeat(rel === '.' ? 0 : rel.split('/').length)}${name}.${ext}`;
+          },
+        },
+      ],
+    }),
+    federation(federationConfig),
+  ],
   root: fileURLToPath(new URL('./src/main/webapp/', import.meta.url)),
   publicDir: fileURLToPath(new URL('./build/generated/webapp/public', import.meta.url)),
   cacheDir: fileURLToPath(new URL('./build/.vite-cache', import.meta.url)),

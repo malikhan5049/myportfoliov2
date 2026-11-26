@@ -14,6 +14,7 @@ import { Authority } from 'app/shared/jhipster/constants';
 const loading = <div>loading ...</div>;
 
 const Admin = React.lazy(() => import('app/modules/administration'));
+const AuthorityRoutes = React.lazy(() => import('app/entities/authority'));
 
 const BlogRoutes = React.lazy(() => loadRemote<any>('blog/entities-routes').catch(() => import('app/shared/error/error-loading')));
 
@@ -35,6 +36,14 @@ const AppRoutes = () => {
             }
           />
           <Route path="sign-in" element={<LoginRedirect />} />
+          <Route
+            path="authority/*"
+            element={
+              <PrivateRoute hasAnyAuthorities={[Authority.ADMIN]}>
+                <AuthorityRoutes />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="blog/*"
             element={

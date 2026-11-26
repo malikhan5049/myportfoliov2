@@ -48,10 +48,6 @@ installation. Docker must be running for integration tests that use Testcontaine
 - If a generated-entity test fails validation, fix the test data — never the test architecture.
 - Module federation: in each app's `module-federation.config.ts`, shared-mapping `import` paths must be relative to the Vite `root` (`src/main/webapp`), e.g. `` `./${map}` `` — never prefix them with `./src/main/webapp/`, or the virtual `mf-localSharedImportMap` imports resolve to a doubled path and the dev server fails.
 
-## Docs caveat
-
-This repo is JHipster 8-era. The current jhipster.tech docs describe 9.x and may lag (for
-example, they name a different frontend test runner). When docs and repo disagree, the repo wins.
 
 ## Where rules live
 

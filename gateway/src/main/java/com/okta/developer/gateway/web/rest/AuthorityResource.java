@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,6 +67,41 @@ public class AuthorityResource {
                 }
             });
         });
+    }
+
+    /**
+     * {@code PUT  /authorities/:id} : Updates an existing authority.
+     *
+     * @param id the id of the authority to update.
+     * @param authority the authority to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated authority,
+     * or with status {@code 400 (Bad Request)} if the authority is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the authority couldn't be updated.
+     */
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public Mono<ResponseEntity<Authority>> updateAuthority(@PathVariable("id") final String id, @Valid @RequestBody Authority authority) {
+        LOG.debug("REST request to update Authority : {}, {}", id, authority);
+        if (authority.getName() == null || authority.getName().isBlank()) {
+            return Mono.error(new BadRequestAlertException("Invalid name", ENTITY_NAME, "idnull"));
+        }
+        if (!Objects.equals(id, authority.getName())) {
+            return Mono.error(new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid"));
+        }
+        return authorityRepository
+            .existsById(id)
+            .flatMap(exists -> {
+                if (!exists) {
+                    return Mono.error(new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound"));
+                }
+                return authorityRepository
+                    .save(authority.setIsPersisted())
+                    .map(result ->
+                        ResponseEntity.ok()
+                            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getName()))
+                            .body(result)
+                    );
+            });
     }
 
     /**

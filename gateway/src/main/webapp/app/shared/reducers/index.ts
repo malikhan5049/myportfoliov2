@@ -1,5 +1,6 @@
 import { ReducersMapObject } from '@reduxjs/toolkit';
 
+import authority from 'app/entities/authority/authority.reducer';
 import administration from 'app/modules/administration/administration.reducer';
 import loadingBar from 'app/shared/reducers/loading-bar';
 
@@ -11,6 +12,7 @@ import userManagement from './user-management';
 
 const rootReducer: ReducersMapObject = {
   authentication,
+  authority,
   locale,
   applicationProfile,
   administration,
