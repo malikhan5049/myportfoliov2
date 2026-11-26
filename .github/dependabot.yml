@@ -1,0 +1,33 @@
+# Dependabot dependency updates — currently DISABLED on purpose.
+#
+# `open-pull-requests-limit: 0` keeps Dependabot silent while the project is
+# under heavy development. To enable it later, change the limit to 2 (or
+# delete the line) in every `updates:` entry below. Updates are pre-configured
+# to run once a month.
+version: 2
+updates:
+  # npm workspaces: root package.json covers gateway, blog and store frontends
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0
+
+  # Gradle builds, one per application
+  - package-ecosystem: "gradle"
+    directory: "/gateway"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0
+
+  - package-ecosystem: "gradle"
+    directory: "/blog"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0
+
+  - package-ecosystem: "gradle"
+    directory: "/store"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0

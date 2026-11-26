@@ -49,6 +49,18 @@ installation. Docker must be running for integration tests that use Testcontaine
 - Module federation: in each app's `module-federation.config.ts`, shared-mapping `import` paths must be relative to the Vite `root` (`src/main/webapp`), e.g. `` `./${map}` `` — never prefix them with `./src/main/webapp/`, or the virtual `mf-localSharedImportMap` imports resolve to a doubled path and the dev server fails.
 
 
+## Git & PR workflow
+
+- The default branch is `main`.
+- **Never push directly to `main`.** Every change — no matter how small — goes
+  through a feature branch and a pull request.
+- Enforcement of this rule lives in the repository settings on GitHub (branch
+  protection / rulesets for `main`), not in any file in this repo. This section
+  documents the convention; see the repo settings for the actual enforcement.
+- Dependabot is pre-configured in `.github/dependabot.yml` with a monthly
+  schedule but currently disabled (`open-pull-requests-limit: 0`); see the
+  comments in that file for how to enable it.
+
 ## Where rules live
 
 - Per-service guidance: `gateway/AGENTS.md`, `blog/AGENTS.md`, `store/AGENTS.md`.
