@@ -59,12 +59,17 @@ describe('Header', () => {
 
     // Find Navbar component
     expect(html).toContain('navbar');
+    // Vertical icon rail
+    expect(html).toContain('jh-sidebar');
     // Find AdminMenu component
     expect(html).toContain('admin-menu');
     // Find EntitiesMenu component
     expect(html).toContain('entity-menu');
     // Find AccountMenu component
     expect(html).toContain('account-menu');
+    // Brand title and version badge are not rendered in the rail
+    expect(html).not.toContain('brand-title');
+    expect(html).not.toContain('navbar-version');
     // Ribbon
     expect(html).toContain('ribbon');
   });
