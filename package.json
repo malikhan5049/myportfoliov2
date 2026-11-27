@@ -30,10 +30,15 @@
     "kill:all": "powershell -NoProfile -Command 'Get-NetTCPConnection -LocalPort 8080,8081,8082,8300,9000,9001,9002,9080 -State Listen -ErrorAction SilentlyContinue | Select-Object -Unique -ExpandProperty OwningProcess | ForEach-Object { taskkill /F /T /PID $_ }'",
     "prettier:check": "prettier --check \"{,.blueprint/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts}\"",
     "prettier:format": "prettier --write \"{,.blueprint/**/}*.{md,json,yml,js,cjs,mjs,ts,cts,mts}\"",
+    "build": "concurrently npm:build:gateway npm:build:blog npm:build:store",
     "watch": "concurrently npm:watch:gateway npm:watch:blog npm:watch:store",
+    "watch:gateway:blog": "concurrently npm:watch:gateway npm:watch:blog",
     "watch:blog": "npm run watch --workspace blog --if-present",
     "watch:gateway": "npm run watch --workspace gateway --if-present",
     "watch:store": "npm run watch --workspace store --if-present",
+    "build:blog": "npm run build --workspace blog --if-present",
+    "build:gateway": "npm run build --workspace gateway --if-present",
+    "build:store": "npm run build --workspace store --if-present",
     "webapp:test": "npm run webapp:test --workspaces --if-present"
   },
   "devDependencies": {

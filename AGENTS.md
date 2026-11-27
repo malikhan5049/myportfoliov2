@@ -33,6 +33,16 @@ Run npm only from the repo root; the root workspaces forward to each app.
 
 Use the Gradle wrapper shipped with each app (`gradlew` on Windows); never a system Gradle installation. Docker must be running for integration tests that use Testcontainers.
 
+## Worktrees
+
+- Create all git worktrees inside the repo root's `.worktrees/` folder (e.g. `git worktree add .worktrees/<branch-name>`), never anywhere else. `.worktrees/` must be gitignored so `git status` stays clean.
+- **Never run `npm install` inside a worktree.** Worktrees reuse the main checkout's dependencies instead:
+  - Link the root `node_modules` into the worktree with a junction (no admin rights needed):
+    `cmd /c mklink /J .worktrees\<name>\node_modules ..\..\node_modules`
+  - Node/Vite parent-directory resolution picks up the root `node_modules` anyway, but the junction also makes `npm run` scripts resolve `.bin` shims reliably.
+- If a worktree changes any `package.json`, install in the **main checkout** — not the worktree (through the junction it would write into the main `node_modules`).
+- Gradle needs no sharing: caches are global (`~/.gradle`) and each worktree builds into its own directories.
+
 ## Conventions
 
 - Frontend unit tests use Vitest — not the outdated test runner named in upstream docs. e2e tests use Cypress.
