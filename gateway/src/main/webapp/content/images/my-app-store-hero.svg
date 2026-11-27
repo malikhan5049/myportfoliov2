@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="My App Store illustration">
+  <defs>
+    <linearGradient id="mas-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b2a4a"/>
+      <stop offset="1" stop-color="#27406e"/>
+    </linearGradient>
+    <linearGradient id="mas-awning" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b7fce"/>
+      <stop offset="1" stop-color="#3d5fa8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="480" rx="24" fill="url(#mas-bg)"/>
+
+  <!-- subtle dot grid -->
+  <g fill="#3a558c" opacity="0.55">
+    <circle cx="64" cy="72" r="3"/><circle cx="112" cy="72" r="3"/><circle cx="160" cy="72" r="3"/>
+    <circle cx="64" cy="120" r="3"/><circle cx="112" cy="120" r="3"/><circle cx="160" cy="120" r="3"/>
+    <circle cx="64" cy="168" r="3"/><circle cx="112" cy="168" r="3"/><circle cx="160" cy="168" r="3"/>
+    <circle cx="480" cy="312" r="3"/><circle cx="528" cy="312" r="3"/><circle cx="576" cy="312" r="3"/>
+    <circle cx="480" cy="360" r="3"/><circle cx="528" cy="360" r="3"/><circle cx="576" cy="360" r="3"/>
+    <circle cx="480" cy="408" r="3"/><circle cx="528" cy="408" r="3"/><circle cx="576" cy="408" r="3"/>
+  </g>
+
+  <!-- storefront outline -->
+  <g stroke="#e8edf7" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M176 168 h288 v184 h-288 z"/>
+    <path d="M160 168 h320"/>
+  </g>
+  <!-- awning -->
+  <g fill="url(#mas-awning)">
+    <path d="M160 112 h320 l24 56 h-368 z"/>
+  </g>
+  <g stroke="#e8edf7" stroke-width="3" opacity="0.6">
+    <path d="M212 112 l16 56"/>
+    <path d="M266 112 l12 56"/>
+    <path d="M320 112 l8 56"/>
+    <path d="M374 112 l4 56"/>
+    <path d="M428 112 l0 56"/>
+  </g>
+
+  <!-- doorway -->
+  <path d="M420 352 v-96 a28 28 0 0 1 28-28 h0 a28 28 0 0 1 28 28 v96 z" fill="#101a30" stroke="#e8edf7" stroke-width="5"/>
+
+  <!-- three product tiles -->
+  <g stroke="#e8edf7" stroke-width="5" fill="#22375f">
+    <rect x="212" y="212" width="56" height="56" rx="10"/>
+    <rect x="212" y="288" width="56" height="56" rx="10"/>
+    <rect x="288" y="212" width="56" height="56" rx="10"/>
+  </g>
+  <g stroke="#8fa9d9" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M224 240 l16-16 12 12 10-10"/>
+    <circle cx="240" cy="316" r="10"/>
+    <path d="M304 240 v32 m-14-16 h28"/>
+  </g>
+
+  <!-- ground line -->
+  <path d="M128 368 h384" stroke="#8fa9d9" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+</svg>
