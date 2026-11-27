@@ -24,14 +24,14 @@ export const Home = () => {
   return (
     <Row>
       <Col md="3" className="pad">
-        <span className="hipster rounded" />
+        <span className="hero rounded" />
       </Col>
       <Col md="9">
         <h1 className="display-4">
-          <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
+          <Translate contentKey="home.title">Welcome to My App Store</Translate>
         </h1>
         <p className="lead">
-          <Translate contentKey="home.subtitle">This is your homepage</Translate>
+          <Translate contentKey="home.subtitle">Your applications in one place</Translate>
         </p>
         {account?.login ? (
           <div>
@@ -65,43 +65,7 @@ export const Home = () => {
           </div>
         )}
         <p>
-          <Translate contentKey="home.question">If you have any questions on JHipster:</Translate>
-        </p>
-
-        <ul>
-          <li>
-            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
-            </a>
-          </li>
-          <li>
-            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
-              <Translate contentKey="home.link.follow">follow @jhipster on Twitter</Translate>
-            </a>
-          </li>
-        </ul>
-
-        <p>
-          <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
-          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          !
+          <Translate contentKey="home.intro">Use the navigation above to explore your applications, the blog and your account.</Translate>
         </p>
       </Col>
     </Row>
