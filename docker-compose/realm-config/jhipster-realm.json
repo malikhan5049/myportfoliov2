@@ -1,8 +1,8 @@
 {
   "id": "jhipster",
   "realm": "jhipster",
-  "displayName": "JHipster",
-  "displayNameHtml": "<div class=\"kc-logo-text\"><span>JHipster</span></div>",
+  "displayName": "My App Store",
+  "displayNameHtml": "<div class=\"kc-logo-text\"><span>My App Store</span></div>",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -50,7 +50,7 @@
       {
         "id": "8e986fb5-dafb-43bf-a7c2-7e57572d3d80",
         "name": "ROLE_ADMIN",
-        "description": "Jhipster administrator role",
+        "description": "Administrator role",
         "composite": false,
         "clientRole": false,
         "containerId": "jhipster",
@@ -68,7 +68,7 @@
       {
         "id": "ec5705e1-fc1d-4d21-8364-abd3bd4efcd0",
         "name": "ROLE_USER",
-        "description": "Jhipster user role",
+        "description": "User role",
         "composite": false,
         "clientRole": false,
         "containerId": "jhipster",
@@ -986,7 +986,7 @@
     {
       "id": "9816de82-24b7-42fe-a85a-1264868ec293",
       "name": "jhipster",
-      "description": "Jhipster specific claims",
+      "description": "Application-specific claims",
       "protocol": "openid-connect",
       "attributes": {
         "include.in.token.scope": "false",
