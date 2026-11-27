@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavItem, NavLink, NavbarBrand } from 'react-bootstrap';
+import { NavItem, NavLink, NavbarBrand, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Translate } from 'react-jhipster';
 import { NavLink as Link } from 'react-router';
 
@@ -10,27 +10,38 @@ import logo from '/content/images/my-app-store-logo.png';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <img src={logo} alt="Logo" />
+    <img src={logo} alt="" />
   </div>
 );
 
 export const Brand = () => (
-  <NavbarBrand as={Link} to="/" className="brand-logo">
-    <BrandIcon />
-    <span className="brand-title">
-      <Translate contentKey="global.title">Gateway</Translate>
-    </span>
-    <span className="navbar-version">{VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}</span>
-  </NavbarBrand>
+  <OverlayTrigger
+    placement="right"
+    overlay={tooltipProps => (
+      <Tooltip {...tooltipProps}>
+        <Translate contentKey="global.title">Gateway</Translate>
+      </Tooltip>
+    )}
+  >
+    <NavbarBrand as={Link} to="/" className="brand-logo jh-rail-brand">
+      <BrandIcon />
+    </NavbarBrand>
+  </OverlayTrigger>
 );
 
 export const Home = () => (
-  <NavItem>
-    <NavLink as={Link} to="/" className="d-flex align-items-center">
-      <FontAwesomeIcon icon={faHome} />
-      <span>
-        <Translate contentKey="global.menu.home">Home</Translate>
-      </span>
-    </NavLink>
+  <NavItem className="jh-rail-item">
+    <OverlayTrigger
+      placement="right"
+      overlay={tooltipProps => (
+        <Tooltip {...tooltipProps}>
+          <Translate contentKey="global.menu.home">Home</Translate>
+        </Tooltip>
+      )}
+    >
+      <NavLink as={Link} to="/" end className="jh-rail-link">
+        <FontAwesomeIcon icon={faHome} />
+      </NavLink>
+    </OverlayTrigger>
   </NavItem>
 );
