@@ -6,7 +6,7 @@ import { NavLink as Link } from 'react-router';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import logo from '/content/images/logo-jhipster.png';
+import logo from '/content/images/my-app-store-logo.png';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
